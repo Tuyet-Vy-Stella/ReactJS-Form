@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import {connect} from "react-redux";
 
-export default class FormThemSV extends Component {
+class FormThemSV extends Component {
 
     state = {
         id: '',
@@ -21,6 +22,11 @@ export default class FormThemSV extends Component {
         })
     }
 
+    handleSubmit = (e) => {
+      e.preventDefault(); //Prevent reloading page of browser when clicking button "Thêm sinh viên"
+      this.props.addStudent(this.state);
+    }
+
   render() {
     return (
       <div className="container mb-4">
@@ -29,7 +35,7 @@ export default class FormThemSV extends Component {
             <h3>Thông Tin Sinh Viên</h3>
           </div>
           <div className="card-body">
-            <form action="">
+            <form action="" onSubmit={this.handleSubmit}>
                 <div className="row mb-3">
                     <div className="form-group col-6">
                         <span>Mã SV</span>
@@ -52,7 +58,7 @@ export default class FormThemSV extends Component {
                 </div>
                 <div className="row">
                     <div className="col-md-12">
-                        <button className="btn btn-success">Thêm sinh viên</button>
+                        <button type="submit" className="btn btn-success">Thêm sinh viên</button>
                     </div>
                 </div>
             </form>
@@ -62,3 +68,17 @@ export default class FormThemSV extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addStudent: (student) => {
+      const action = {
+        type: 'ADD_STUDENT',
+        student
+      }
+      dispatch(action);
+    }
+  }
+}
+
+export default connect (null, mapDispatchToProps)(FormThemSV);
