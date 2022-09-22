@@ -43,6 +43,7 @@ class FormThemSV extends Component {
 
     this.setState(
       {
+        ...this.state,
         values:values,
         errors:errors
       },
@@ -56,6 +57,21 @@ class FormThemSV extends Component {
     e.preventDefault(); //Prevent reloading page of browser when clicking button "Thêm sinh viên"
     this.props.addStudent(this.state.values);
   };
+
+  checkValid = () => {
+    let valid = true; //No error
+    for(let key in this.state.errors){
+      if(this.state.errors[key] !== '' || this.state.values[key] === ''){ //Content errMessage apprears or empty input
+        valid = false;
+      }
+    }
+    if(valid){
+      return <button type="submit" className="btn btn-success">
+      Thêm sinh viên</button>
+    }
+    return <button type="submit" disabled className="btn btn-success">
+    Thêm sinh viên</button>
+  }
 
   render() {
     return (
@@ -119,9 +135,8 @@ class FormThemSV extends Component {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  <button type="submit" className="btn btn-success">
-                    Thêm sinh viên
-                  </button>
+                    {this.checkValid()}
+                    
                 </div>
               </div>
             </form>

@@ -1,6 +1,6 @@
 
 const stateDefault = {
-    arrStudent: [{id:1, fullName:'Nguyễn Văn A', phoneNumber:'0938111111', email:'nguyenvana@gmail.com'}]
+    arrStudent: [{id:'', fullName:'', phoneNumber:'', email:''}]
 }
 
 export const QLSVReducer = (state = stateDefault, action) => {
